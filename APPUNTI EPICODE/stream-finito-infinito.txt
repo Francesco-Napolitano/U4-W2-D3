@@ -1,0 +1,22 @@
+Gli stream in Java possono essere sia finiti che infiniti a seconda di come vengono generati e utilizzati. Questa flessibilità permette agli sviluppatori di scegliere l'approccio più adatto al loro caso d'uso specifico.
+
+1. Stream Finiti:
+   Gli stream finiti hanno un numero definito di elementi. Questi stream sono spesso creati da collezioni finiti, come liste, set, o mappe, o da array. Una volta che tutti gli elementi sono stati processati, lo stream termina. La maggior parte degli stream utilizzati nella pratica quotidiana sono finiti.
+
+   Esempio di Stream Finito:
+   
+   List<String> list = Arrays.asList("a", "b", "c");
+   Stream<String> finiteStream = list.stream();
+   
+
+2. Stream Infiniti:
+   Gli stream infiniti, come suggerisce il nome, hanno un numero illimitato di elementi. Questi stream sono tipicamente generati da funzioni che producono un flusso continuo di dati. Le funzioni come `Stream.iterate` e `Stream.generate` possono essere utilizzate per creare tali stream. L'uso degli stream infiniti deve essere gestito con attenzione, in quanto le operazioni che non considerano la loro natura infinita possono causare cicli infiniti o esaurimento della memoria.
+
+   Esempio di Stream Infinito:
+   
+   Stream<Integer> infiniteStream = Stream.iterate(0, n -> n + 1);
+   
+
+La possibilità di lavorare con stream infiniti è particolarmente utile in contesti come la generazione o l'elaborazione continua di dati, sperimentazioni con sequenze teoriche infinite (come i numeri di Fibonacci o altri pattern matematici), o in situazioni in cui la dimensione dei dati non è nota a priori o è illimitata.
+
+Tuttavia, quando si lavora con stream infiniti, è essenziale utilizzare operazioni che impongono un limite o una condizione di terminazione, come `limit`, `findFirst`, o `anyMatch`, per evitare cicli infiniti o esaurimento delle risorse del sistema.

@@ -1,0 +1,35 @@
+La "pipeline" di uno stream in Java è una sequenza di operazioni di trasformazione e manipolazione dei dati che è possibile applicare a un flusso di elementi. Le pipeline di stream sono un concetto centrale nell'API Stream di Java, introdotte in Java 8. Esse permettono di eseguire operazioni in stile funzionale su raccolte di oggetti in maniera efficiente e leggibile.
+
+Una pipeline di stream tipicamente comprende tre componenti principali:
+
+1. Sorgente dello Stream:
+   La sorgente è da dove lo stream prende i suoi elementi. Può essere una collezione, un array, un generatore, un canale I/O, ecc.
+   
+   Stream<String> stream = list.stream(); // Creazione di uno stream da una lista
+   
+
+2. Operazioni Intermedie:
+   Sono operazioni che trasformano lo stream in un altro stream, come `map`, `filter`, `sorted`. Queste operazioni sono lazy, il che significa che non vengono eseguite fino a quando non viene innescata un'operazione terminale.
+   
+   stream.filter(s -> s.startsWith("A")) // Filtra gli elementi che iniziano con "A"
+         .map(String::toUpperCase)       // Converte ogni stringa in maiuscolo
+   
+
+3. Operazioni Terminali:
+   Un'operazione terminale produce un risultato o un effetto collaterale e chiude la pipeline. Dopo che un'operazione terminale è stata eseguita, lo stream non può più essere utilizzato. Esempi di operazioni terminali sono `forEach`, `collect`, `reduce`, `anyMatch`, `findFirst`.
+   
+   List<String> filteredList = stream.collect(Collectors.toList()); // Raccoglie i risultati in una lista
+   
+
+Esempio di una Pipeline di Stream Completa:
+
+List<String> resultList = list.stream()                   // Sorgente dello stream
+                              .filter(s -> s.length() > 3) // Operazione intermedia
+                              .map(String::toUpperCase)    // Altra operazione intermedia
+                              .sorted()                    // Ancora un'operazione intermedia
+                              .collect(Collectors.toList()); // Operazione terminale
+
+
+In questo esempio, la pipeline prende una lista di stringhe, filtra quelle più lunghe di tre caratteri, converte ogni stringa risultante in maiuscolo, le ordina, e infine raccoglie i risultati in una nuova lista.
+
+Le pipeline di stream offrono diversi vantaggi, come la leggibilità, la facilità d'uso e la potenziale efficienza grazie alla natura lazy delle operazioni intermedie e alla possibilità di esecuzione parallela. Consentono agli sviluppatori di scrivere codice in uno stile più dichiarativo e funzionale, concentrando l'attenzione su cosa fare piuttosto che su come farlo.

@@ -1,0 +1,34 @@
+Diagramma di classi UML (Unified Modeling Language), che viene utilizzato per rappresentare la struttura di un sistema mostrando le sue classi, i loro attributi, metodi, e le relazioni tra le classi.
+
+1. Classi e Attributi:
+   - Product:
+     - `id`: Long
+     - `name`: String
+     - `category`: String
+     - `price`: Double
+   - Order:
+     - `id`: Long
+     - `status`: String
+     - `orderDate`: LocalDate
+     - `deliveryDate`: LocalDate
+     - `products`: List<Product>
+     - `customer`: Customer
+   - Customer:
+     - `id`: Long
+     - `name`: String
+     - `tier`: Integer
+
+2. Qualificatori di Visibilità:
+   - Il simbolo `+` davanti agli attributi indica che sono pubblici (public), il che significa che possono essere accessibili da altre classi.
+
+3. Tipi di Dati:
+   - `Long`, `String`, `Double`, `LocalDate`, e `Integer` sono tipi di dati usati in Java. `List<Product>` indica una lista di oggetti della classe `Product`.
+
+4. Relazioni:
+   - La linea tra `Product` e `Order` indica una relazione tra le due classi. In particolare, sembra indicare una relazione di tipo associativo, che significa che un ordine può contenere più prodotti. Questo è rappresentato dalla notazione `List<Product>` nell'attributo `products` della classe `Order`.
+   - La linea con la freccia da `Order` a `Customer` indica che la classe `Order` ha un riferimento a un oggetto `Customer`. Questo significa che ogni `Order` è associato a un singolo `Customer`.
+
+5. Nomi delle Classi:
+   - `Product`, `Order`, e `Customer` sono i nomi delle classi in Java.
+
+Questo diagramma è utile per i programmatori per comprendere come le classi sono collegate tra loro e come possono interagire in un'applicazione. Per esempio, in un sistema di e-commerce, un `Order` può contenere diversi `Product` e ogni `Order` è fatto da un `Customer`.

@@ -1,0 +1,31 @@
+Le operazioni `map` e `filter` sono entrambe operazioni intermedie che possono essere utilizzate in una pipeline di operazioni su stream in Java. Possono essere concatenate insieme per eseguire trasformazioni e filtraggi complessi in modo dichiarativo e funzionale.
+
+Operazione `map`:
+- Come menzionato nel file delle map, `map` applica una funzione a ciascun elemento di uno stream e restituisce un nuovo stream che contiene i risultati della funzione applicata. È usata per trasformare gli elementi dello stream.
+Operazione `filter`:
+- `filter` prende un `Predicate` come argomento, che è una singola condizione di test espressa come lambda. Questa condizione viene applicata a ciascun elemento dello stream, e `filter` restituisce un nuovo stream che include solo gli elementi che soddisfano il predicato (cioè, per i quali il predicato restituisce `true`).
+
+Esempio:
+
+users.stream().map(user -> user.getAge()).filter(età -> età < 18).forEach(età -> System.out.println(età));
+
+Stai creando uno stream di utenti, mappando ciascun utente alla sua età, poi filtrando per includere solo coloro che sono minorenni (età < 18), e infine stampando queste età.
+
+Nel secondo esempio:
+
+List<Integer> etàDegliUserMinorenni = users.stream().map(user -> user.getAge()).filter(età -> età < 18).toList();
+
+Stai facendo la stessa operazione di mappatura e filtraggio, ma invece di stampare le età, le stai raccogliendo in una lista utilizzando il metodo `toList()`, che è un'operazione terminale introdotta nelle versioni successive di Java dopo la 8 come alternativa pratica al metodo `collect(Collectors.toList())`.
+
+Nel terzo esempio:
+
+List<String> nomiDeiMinorenni = users.stream().filter(user -> user.getAge() < 18).map(user -> user.getName()).toList();
+
+Invece di mappare prima tutti gli utenti alle loro età, stai filtrando prima gli utenti che sono minorenni e poi mappando gli utenti rimanenti ai loro nomi, che poi vengono raccolti in una lista. Quindi, in questo caso, il filtraggio precede la mappatura.
+Casi d'uso:
+- `map`: trasformazione di elementi, estrazione di attributi, applicazione di calcoli, ecc.
+- `filter`: selezione di elementi basata su condizioni, esclusione di valori non desiderati, ecc
+
+.
+
+Entrambe le operazioni sono state introdotte in Java 8 e sono ampiamente utilizzate per il loro approccio dichiarativo alla manipolazione dei dati, che consente di scrivere codice più leggibile e manutenibile. Possono essere utilizzate in una grande varietà di casi, dall'elaborazione di collezioni di dati in applicazioni aziendali fino a stream di elaborazione in tempo reale, analisi dati, e oltre.

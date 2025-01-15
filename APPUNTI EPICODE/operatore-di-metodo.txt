@@ -1,0 +1,30 @@
+In Java, l'operatore `::` è noto come "riferimento a metodo" (method reference). È una caratteristica introdotta in Java 8 che permette di fare riferimento a un metodo senza eseguirlo. I riferimenti a metodo forniscono un modo per passare un metodo come argomento a un'altra funzione in modo più conciso rispetto alle espressioni lambda. 
+
+L'operatore `::` viene utilizzato per creare un riferimento a metodo statico, a un metodo di istanza di un oggetto particolare, a un metodo di istanza di un oggetto di un tipo particolare, o a un costruttore. Ecco alcuni esempi:
+
+1. Riferimento a Metodo Statico:
+   
+   Integer::parseInt
+   
+   Qui, `parseInt` è un metodo statico della classe `Integer`.
+
+2. Riferimento a Metodo di Istanza di un Oggetto Particolare:
+   
+   String myString = "hello";
+   Runnable r = myString::toUpperCase;
+   
+   In questo caso, `toUpperCase` è un metodo di istanza che viene chiamato sull'oggetto `myString`.
+
+3. Riferimento a Metodo di Istanza di un Oggetto di un Tipo Particolare:
+   
+   String::toUpperCase
+   
+   Questo è un riferimento a un metodo di istanza che può essere applicato a ogni oggetto del tipo `String`.
+
+4. Riferimento a Costruttore:
+   
+   ArrayList::new
+   
+   Qui, `new` si riferisce al costruttore di `ArrayList`.
+
+I riferimenti a metodo sono particolarmente utili in contesti di programmazione funzionale, come nell'uso delle API Stream di Java, dove possono rendere il codice più pulito e leggibile.

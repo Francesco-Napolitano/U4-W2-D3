@@ -1,0 +1,38 @@
+L'operazione `reduce` in uno `Stream` in Java è un'operazione terminale che combina gli elementi di uno stream per produrre un singolo valore riassuntivo. Questa operazione prende due parametri: un valore iniziale, chiamato identità, e una `BinaryOperator` che viene applicata ripetutamente agli elementi dello stream per produrre il risultato ridotto.
+
+Esempio:
+
+int totalAge = users.stream().map(user -> user.getAge()).reduce(0, (partialSum, currentElem) -> partialSum + currentElem);
+System.out.println("Età totale degli user: " + totalAge);
+
+la `reduce` viene utilizzata per calcolare l'età totale di tutti gli utenti. Il valore iniziale è `0` (l'identità per l'operazione di somma), e la `BinaryOperator` è una lambda che somma due valori: `partialSum` (la somma parziale fino a quel momento) e `currentElem` (l'elemento corrente dello stream).
+
+Uso di `reduce`:
+1. Calcoli aggregati:
+   - `reduce` è comunemente usato per calcoli aggregati come somma, prodotto, massimo, minimo, ecc.
+     
+     int sum = numbers.stream().reduce(0, Integer::sum);
+     
+
+2. Concatenazione di stringhe:
+   - Può essere usato per concatenare stringhe in un unico valore.
+     
+     String concatenated = strings.stream().reduce("", String::concat);
+     
+
+3. Valori complessi:
+   - Combina elementi di stream per costruire valori
+
+ più complessi, come collezioni o oggetti di una certa struttura.
+    
+    List<Point> points = ...; // Supponiamo una lista di punti
+    Rectangle boundingBox = points.stream().reduce(new Rectangle(), Rectangle::expandToInclude, Rectangle::combine);
+    
+    Dove `expandToInclude` è un metodo che espande un rettangolo per includere un punto e `combine` è un metodo che combina due rettangoli in uno che li contiene entrambi.
+
+4. Casi d'uso in parallelo:
+   - Quando si esegue un'operazione `reduce` su uno stream parallelo, è necessario fornire un'identità e una funzione di accumulazione che sia associativa per garantire che il risultato sia indipendente dall'ordine di elaborazione degli elementi.
+Casi d'uso:
+- `reduce` è ampiamente usato in applicazioni che richiedono l'aggregazione di dati da collezioni, come nel calcolo di statistiche (media, mediana, somma, ecc.), nella combinazione di risultati da diversi sorgenti dati, o nella riduzione di una serie di operazioni o transazioni a un singolo risultato.
+Versione di Java:
+La funzione `reduce` è stata introdotta in Java 8 insieme alle altre API di stream. L'approccio di riduzione è un concetto fondamentale nella programmazione funzionale e si adatta bene al paradigma di programmazione dichiarativa di Java 8, consentendo agli sviluppatori di scrivere codice conciso e parallelo più facilmente.

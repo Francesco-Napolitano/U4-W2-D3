@@ -1,0 +1,39 @@
+Un `Supplier<T>` è un'altra interfaccia funzionale fornita dal pacchetto `java.util.function` in Java 8, che supporta la programmazione funzionale e le lambda. Un `Supplier<T>` non accetta argomenti ma restituisce un valore di tipo `T` quando viene invocato. Il suo unico metodo astratto è `get()`, che restituisce un valore di tipo `T`.
+
+Esempio:
+
+Supplier<Integer> integerSupplier = () -> {
+    Random rndm = new Random();
+    return rndm.nextInt(1, 101);
+};
+
+è un `Supplier<Integer>` che utilizza un oggetto `Random` per generare e restituire un numero casuale tra 1 e 100 ogni volta che viene invocato il metodo `get()`.
+
+Uso dei Supplier:
+I `Supplier` sono utili in diversi scenari, tra cui:
+
+1. Laziness:
+   - Sono usati per ritardare la creazione di oggetti fino a quando non sono realmente necessari. Questo può migliorare le prestazioni dell'applicazione, evitando la creazione di oggetti esosi di risorse e che potrebbero non essere utilizzati.
+
+2. Fornitura di valori predefiniti:
+   - Possono fornire valori predefiniti o fallback quando si lavora con operazioni che possono risultare in valori `null` o mancanti.
+
+3. Generazione di valori illimitati:
+   - Possono essere utilizzati con le API Stream per generare flussi infiniti di valori. Per esempio, `Stream.generate(Supplier<T> s)` è un metodo che crea uno stream illimitato di valori forniti dal `Supplier`.
+
+4. Costruttori:
+   - Servono come Costruttori per creare nuove istanze di oggetti ogni volta che sono richiesti.
+
+5. Integrazione con altre API funzionali:
+   - Possono essere usati in combinazione con altre interfacce funzionali come `Function`, `Consumer`, e `Predicate` per creare pipeline di operazioni funzionali complesse.
+
+6. Costruzione di oggetti complessi:
+   - In alcuni casi, quando la costruzione di un oggetto è complessa e richiede configurazioni, un `Supplier` può incapsulare questa logica.
+
+7. Iniezione delle dipendenze:
+   - Possono essere usati nei framework di iniezione delle dipendenze per fornire un modo per ritardare la creazione di dipendenze.
+
+8. Test e mocking:
+   - Molto utili nei test per fornire implementazioni mock o stub di oggetti che sono costosi da creare o necessitano di configurazione per i test.
+
+In termini di versione, come già accennato, `Supplier` è stato introdotto in Java 8 insieme al supporto per la programmazione funzionale, permettendo di scrivere codice più espressivo e conciso e di utilizzare paradigmi di programmazione dichiarativa.

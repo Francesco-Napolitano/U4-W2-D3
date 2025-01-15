@@ -1,0 +1,59 @@
+Le funzioni lambda in Java sono molto più versatili e non sono limitate solo all'assegnazione a variabili. Possono essere utilizzate ovunque sia richiesto un tipo compatibile con l'interfaccia funzionale. Un'interfaccia funzionale è un'interfaccia che ha un solo metodo astratto (oltre ai metodi di default e statici), e le espressioni lambda forniscono un'implementazione concisa e in linea per tali interfacce.
+
+Ecco alcuni modi in cui le espressioni lambda possono essere utilizzate in Java:
+
+1. Assegnazione a Variabili:
+   Come hai già notato, le espressioni lambda possono essere assegnate a variabili di un tipo di interfaccia funzionale.
+   
+   Predicate<Integer> isPositive = x -> x > 0;
+   
+
+2. Argomenti di Metodo:
+   Le espressioni lambda possono essere passate direttamente ai metodi che accettano interfacce funzionali come parametri.
+   
+   Arrays.asList("a", "b", "c").forEach(e -> System.out.println(e));
+   
+
+3. Valore di Ritorno:
+   Un metodo può restituire un'espressione lambda come valore di ritorno.
+   
+   public Supplier<String> getStringSupplier() {
+       return () -> "Supplied String";
+   }
+   
+
+4. Creazione di Oggetti:
+   Possono essere utilizzate per creare istanze di interfacce funzionali.
+   
+   Callable<String> callable = () -> "Callable result";
+   
+
+5. Con le API Stream:
+   Sono ampiamente usate con le API Stream per operazioni di filtro, mappatura, riduzione e altro.
+   
+   list.stream().filter(e -> e.startsWith("S")).collect(Collectors.toList());
+   
+
+6. In Strutture di Controllo:
+   Possono essere utilizzate in strutture di controllo come `if`, `switch`, o cicli, se il contesto richiede un'operazione funzionale.
+   
+   if (someCondition) {
+       process(() -> System.out.println("Condition met"));
+   }
+   
+
+7. Collections API:
+   Vengono usate con le Collections API per operazioni come `sort`, `removeIf`, ecc.
+   
+   Collections.sort(someList, (a, b) -> a.compareTo(b));
+   
+
+8. Handler di Eventi:
+   Nelle applicazioni
+
+ GUI, come quelle che utilizzano Swing o JavaFX, le espressioni lambda sono spesso utilizzate per implementare listener di eventi in modo conciso.
+   
+   button.addActionListener(e -> System.out.println("Clicked!"));
+   
+
+Le espressioni lambda hanno introdotto un modo più espressivo e meno verboso di implementare interfacce con un singolo metodo in Java, rendendo il codice più leggibile e facile da scrivere, specialmente in situazioni che richiedono implementazioni anonime, come nel caso di listener o operazioni su collezioni. La loro introduzione in Java 8 è stata una parte significativa dell'evoluzione del linguaggio verso un paradigma più funzionale, in linea con altri linguaggi moderni.

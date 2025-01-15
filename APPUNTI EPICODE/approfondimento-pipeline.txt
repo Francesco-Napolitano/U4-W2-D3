@@ -1,0 +1,52 @@
+La pipeline di uno stream in Java è un concetto chiave nella programmazione funzionale con le API di Stream introdotte in Java 8. Essa permette di elaborare sequenze di elementi (come collezioni) in un modo che sia espressivo ed efficiente, specialmente per operazioni su larga scala o su dati complessi. Una pipeline di stream è composta da una sorgente, zero o più operazioni intermedie e un'operazione terminale.
+
+1. Sorgente dello Stream: Una pipeline di stream inizia con una sorgente, che può essere una collezione, un array, un generatore di elementi, o altre fonti di dati. La sorgente fornisce gli elementi che saranno processati nella pipeline.
+
+2. Operazioni Intermedie: Queste operazioni trasformano gli elementi dello stream in qualche modo senza produrre un risultato finale. Sono operazioni "pigre", nel senso che non vengono eseguite fino a quando non viene invocata un'operazione terminale. Esempi di operazioni intermedie includono `filter`, `map`, `sorted`.
+
+    - filter: Restringe gli elementi dello stream in base ad una condizione.
+    - map: Trasforma gli elementi dello stream applicando una funzione.
+    - sorted: Ordina gli elementi dello stream.
+
+Le operazioni intermedie possono essere concatenate, formando una catena di trasformazioni.
+
+3. Operazioni Terminali: Queste operazioni concludono la pipeline e producono un risultato. A differenza delle operazioni intermedie, sono "eager", ovvero vengono eseguite immediatamente e producono un risultato concreto, come un valore, una collezione. Esempi di operazioni terminali includono `forEach`, `collect`, `reduce`.
+
+    - forEach: Esegue un'azione per ogni elemento dello stream.
+    - collect: Accumula gli elementi in una collezione, come una lista o un set.
+    - reduce: Combina tutti gli elementi dello stream in un singolo risultato, utilizzando un'operazione cumulativa.
+
+Esempio di Pipeline di Stream
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class StreamExample {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("Apple", "Banana", "Cherry", "Date");
+
+        List<String> result = words.stream()         // Sorgente
+                                  .filter(s -> s.startsWith("B"))  // Operazione intermedia
+                                  .map(String::toUpperCase)        // Operazione intermedia
+                                  .collect(Collectors.toList());   // Operazione terminale
+
+        System.out.println(result); // Stampa [BANANA]
+    }
+}
+
+In questo esempio, creiamo uno stream dalla
+
+lista `words`, filtriamo le parole che iniziano con la lettera "B", convertiamo quelle parole in maiuscolo, e infine raccogliamo i risultati in una nuova lista. La chiamata a `collect(Collectors.toList())` è l'operazione terminale che avvia l'esecuzione della pipeline dello stream.
+
+Punti Chiave
+
+- Laziness: Le operazioni intermedie non vengono eseguite fino a quando non viene invocata un'operazione terminale. Questo comportamento "pigro" permette un'elaborazione efficiente, specialmente per stream grandi o infiniti.
+
+- Non Modifica la Sorgente: La pipeline dello stream non modifica la sorgente dei dati. Invece, produce un nuovo stream con i dati trasformati.
+
+- Operazioni Stateless e Stateful: Alcune operazioni intermedie sono "stateless" (come `map` e `filter`), il che significa che l'elaborazione di un elemento è indipendente dagli altri. Altre operazioni sono "stateful" (come `sorted`), il che significa che necessitano di conoscenza di altri elementi nello stream.
+
+- Parallelismo: Le pipeline di stream possono essere eseguite in parallelo con facilità per aumentare le prestazioni su sistemi multi-core, semplicemente cambiando `stream()` con `parallelStream()`.
+
+In sintesi, le pipeline di stream in Java forniscono un modo potente, espressivo e flessibile per elaborare sequenze di dati, sfruttando i benefici della programmazione funzionale e della laziness.

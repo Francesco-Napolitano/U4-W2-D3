@@ -1,0 +1,13 @@
+1. `Stream<String> streamOfArray = Stream.of("a", "b", "c");`
+   - Crea uno stream direttamente da valori forniti. Questo è utile quando hai già gli elementi che vuoi inserire nello stream.
+
+2. `String[] arr = new String[]{"a", "b", "c"};`
+   - Definisce e inizializza un array di `String` con tre elementi: "a", "b", "c".
+
+3. `Stream<String> streamOfArrayFull = Arrays.stream(arr);`
+   - Crea uno stream da tutto l'array `arr` utilizzando il metodo `stream` della classe di utilità `Arrays`. Questo metodo accetta l'intero array e lo converte in uno stream che contiene tutti gli elementi dell'array.
+
+4. `Stream<String> streamOfArrayPart = Arrays.stream(arr, 1, 3);`
+   - Crea uno stream da una parte specifica dell'array `arr`. In questo caso, lo stream inizia dall'indice 1 (incluso) e va fino all'indice 3 (escluso), quindi lo stream conterrà gli elementi "b" e "c".
+
+Questi snippet mostrano modi comuni di creare stream da array in Java. Gli stream sono utili per eseguire operazioni funzionali su insiemi di dati, come mappe, filtri, riduzioni e altro. Nel tuo esempio, gli stream creati non hanno ancora applicato alcuna operazione; sono pronti per essere utilizzati in una pipeline di stream, dove potresti voler applicare operazioni intermedie e terminali per elaborare gli elementi dello stream.

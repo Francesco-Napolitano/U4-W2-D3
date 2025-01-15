@@ -1,0 +1,152 @@
+Le espressioni lambda in Java sono una caratteristica potente introdotta con Java 8. Esse consentono di scrivere implementazioni di interfacce funzionali in modo più conciso e leggibile. Ecco una spiegazione dettagliata:
+
+Sintassi di Base
+Una lambda si presenta nel formato `(parametri) -> {corpo}`. Dove:
+- parametri: sono gli input della lambda (possono essere omessi se non sono necessari).
+- corpo: è il blocco di codice eseguito quando la lambda è invocata.
+
+Tipi di Espressioni Lambda
+
+1. Senza Parametri:
+   
+   () -> System.out.println("Ciao Mondo");
+   
+
+2. Con un Singolo Parametro (le parentesi possono essere omesse):
+   
+   p -> p * 2;
+   
+
+3. Con Più Parametri:
+   
+   (a, b) -> a + b;
+   
+
+4. Con Corpo Multilinea:
+   
+   (String s) -> {
+       System.out.println("Prima riga");
+       System.out.println("La stringa è: " + s);
+   };
+   
+
+Utilizzo in Interfacce Funzionali
+Le lambda sono spesso usate con le interfacce funzionali (interfacce con un singolo metodo astratto) come `Runnable`, `Callable`, `Comparator`, ecc.
+
+Esempi Pratici
+
+1. Thread con Runnable:
+   
+   new Thread(() -> System.out.println("Thread eseguito")).start();
+   
+
+2. Ordinamento con Comparator:
+   
+   List<String> lista = Arrays.asList("a", "c", "b");
+   Collections.sort(lista, (String a, String b) -> a.compareTo(b));
+   
+
+3. Iterazione con forEach:
+   
+   lista.forEach(elemento -> System.out.println(elemento));
+   
+
+4. Stream API:
+   
+   lista.stream()
+        .filter(s -> s.startsWith("a"))
+        .forEach(System.out::println);
+   
+
+5. Operazioni su Map:
+   
+   Map<String, Integer> map = new HashMap<>();
+   map.forEach((chiave, valore) -> System.out.println(chiave + " => " + valore));
+   
+
+Vantaggi
+- Coincise: Le lambda riducono la verbosità, specialmente quando si implementano interfacce con un singolo metodo.
+- Leggibilità e Pulizia del Codice: Rendono il codice più leggibile e pulito.
+- Facilità nell'Uso di API Funzionali: Sono particolarmente utili con le nuove API funzionali in Java 8, come Stream API.
+
+Limitazioni
+- * Non possono accedere a variabili locali non finali o effettivamente finali del metodo circostante.
+- **Non possono definire o modificare variabili locali all'interno del loro corpo.
+
+Le espressioni lambda in Java rappresentano uno strumento fondamentale per la programmazione funzionale, rendendo il codice più espressivo e meno verboso, specialmente quando si lavora con collezioni e API funzionali.
+
+
+*Limitazione delle Lambda
+In Java, una variabile locale che viene utilizzata all'interno di un'espressione lambda deve essere final o effettivamente final (cioè, il suo valore non cambia dopo l'inizializzazione). Ecco un esempio pratico:
+
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        int someValue = 10;
+        int anotherValue = 20;
+
+        // Un'espressione lambda che accede a 'someValue'
+        Runnable r = () -> System.out.println("Valore: " + someValue);
+
+        // Questo è consentito poiché 'someValue' non viene modificato dopo l'inizializzazione
+        r.run();
+
+        // Tuttavia, se provi a modificare 'someValue', il codice sotto non compilerà:
+        // someValue++;
+
+        // Un altro esempio con una variabile che viene modificata
+        // Questo causerà un errore di compilazione
+        Runnable r2 = () -> System.out.println("Altro valore: " + anotherValue);
+        anotherValue++;
+    }
+}
+
+
+In questo esempio:
+
+- `someValue` è utilizzato all'interno dell'espressione lambda e non viene modificato dopo l'inizializzazione, quindi è effettivamente final.
+- Se decommenti la linea `someValue++;`, vedrai un errore di compilazione perché stai cercando di modificare una variabile locale che viene catturata da un'espressione lambda.
+- `anotherValue` viene modificato dopo che è stato catturato dall'espressione lambda `r2`, il che causerà un errore di compilazione.
+
+Questa restrizione esiste perché l'implementazione delle lambda in Java cattura il valore delle variabili locali al momento della creazione della lambda. Se queste variabili potessero essere modificate, porterebbero a comportamenti inconsisteni o non sicuri all'interno dell'espressione lambda. Per mantenere la coerenza e la sicurezza, Java richiede che queste variabili siano final o effettivamente final.
+
+
+**Limitazione delle Lambda
+Le espressioni lambda in Java non possono definire nuove variabili locali che abbiano lo stesso nome di quelle locali o parametri del metodo circostante. Inoltre, non possono modificare le variabili locali definite al di fuori del loro corpo.
+
+Esempio
+Ecco un esempio pratico che mostra queste limitazioni:
+
+
+import java.util.function.Consumer;
+
+public class LambdaVariableExample {
+    public static void main(String[] args) {
+        int x = 10;
+
+        Consumer<Integer> lambdaConsumer = (y) -> {
+            // Non puoi definire una variabile locale con lo stesso nome di una variabile esterna
+            // int x = 20; // Questo causerà un errore di compilazione
+
+            // Non puoi modificare le variabili locali esterne
+            // x++; // Questo causerà un errore di compilazione
+
+            System.out.println("x + y = " + (x + y));
+        };
+
+        lambdaConsumer.accept(5);
+    }
+}
+
+
+In questo esempio:
+
+- La lambda definita come `lambdaConsumer` cerca di utilizzare la variabile `x` che è definita all'esterno del suo corpo.
+- Se provi a decommentare la linea `int x = 20;` all'interno della lambda, otterrai un errore di compilazione perché stai tentando di definire una nuova variabile locale che ha lo stesso nome di una variabile esterna (`x`).
+- Se provi a modificare la variabile esterna `x` dentro la lambda (come nella linea commentata `x++;`), otterrai un errore di compilazione. Questo perché le variabili locali catturate dalle espressioni lambda in Java devono essere final o effettivamente final, il che significa che non possono essere modificate.
+
+Spiegazione
+Questa limitazione esiste per evitare comportamenti non deterministici e problemi di concorrenza. Poiché le espressioni lambda possono essere eseguite in un contesto diverso da quello in cui sono state create (ad esempio, in un altro thread), modificare le variabili locali esterne potrebbe portare a condizioni di gara o a dati inconsistenti.
+
+Conclusioni
+Le espressioni lambda in Java offrono un modo potente e conciso per implementare interfacce funzionali, ma vengono con alcune limitazioni riguardanti l'accesso e la modifica delle variabili locali per mantenere la sicurezza del thread e prevenire comportamenti imprevisti. Queste limitazioni assicurano che le lambda siano sia sicure da usare in contesti paralleli che coerenti nel loro comportamento.

@@ -1,0 +1,47 @@
+La funzione `map` utilizzata in uno `Stream` in Java è un'operazione intermedia che permette di trasformare gli elementi di uno stream da un tipo a un altro. In pratica, `map` applica una funzione a ciascun elemento dello stream e produce un nuovo stream come risultato di questa trasformazione.
+
+In questo esempio:
+
+users.stream().map(user -> user.getAge()).forEach(età -> System.out.println(età));
+
+stai creando uno stream dalla lista `users`, trasformando ogni `User` nel suo attributo `age` attraverso la funzione `map` e poi iterando su ciascuna età con `forEach` per stamparla.
+
+Uso delle map negli stream:
+L'operazione `map` è utilizzata in molti casi d'uso, tra cui:
+
+1. Conversione o trasformazione di oggetti:
+   - Per convertire una lista di oggetti di un tipo in una lista di oggetti di un altro tipo.
+     java
+     List<String> names = users.stream()
+                               .map(User::getName)
+                               .collect(Collectors.toList());
+     
+     Questo esempio trasforma uno `Stream<User>` in uno `Stream<String>` contenente i nomi degli utenti.
+
+2. Applicazione di logica di calcolo:
+   - Per applicare una logica di calcolo a ciascun elemento e ottenere un risultato modificato.
+     java
+     List<Integer> agesSquared = users.stream()
+                                      .map(user -> user.getAge() * user.getAge())
+                                      .collect(Collectors.toList());
+     
+     Qui si mappano le età degli utenti al loro quadrato.
+
+3. Estrazione di attributi:
+   - Per estrarre un determinato attributo da oggetti complessi.
+     java
+     List<String> emails = users.stream()
+                                .map(User::getEmail)
+                                .collect(Collectors.toList());
+     
+
+4. Applicazione di funzioni complesse:
+   - Per applicare funzioni più complesse che possono includere chiamate a metodi, operazioni su stream annidati, ecc.
+
+5. Concatenazione di operazioni:
+   - La `map` può essere concatenata con altre operazioni intermedie (come `filter`) e terminali (come `collect`, `forEach`) per formare pipeline di operazioni complesse.
+
+Versione di Java:
+Come le altre interfacce funzionali e operazioni su stream, `map` è stata introdotta in Java 8. L'introduzione degli stream ha segnato un importante passo avanti per Java, permettendo agli sviluppatori di scrivere codice in uno stile funzionale, più espressivo e parallelo in modo più semplice.
+
+L'introduzione di `map` e delle altre operazioni su stream ha notevolmente semplificato la manipolazione delle collezioni e ha reso il codice più leggibile, riducendo la necessità di scrivere loop espliciti e operazioni manuali di trasformazione dei dati.

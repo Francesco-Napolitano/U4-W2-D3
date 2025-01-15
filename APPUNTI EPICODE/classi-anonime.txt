@@ -1,0 +1,34 @@
+Una classe anonima in Java è una classe interna senza un nome che viene dichiarata e istanziata in un'unica espressione. Le classi anonime sono utilizzate principalmente per creare istanze di interfacce o classi astratte con un solo uso, senza la necessità di dichiarare una classe concreta completa. 
+
+Caratteristiche delle Classi Anonime:
+
+1. Senza Nome: Come suggerisce il nome, una classe anonima non ha un nome identificativo.
+
+2. Dichiarazione e Istanza: Vengono dichiarate e istanziate al momento del loro utilizzo, tipicamente dove è richiesto un'implementazione di un'interfaccia o una classe astratta.
+
+3. Uso Immediato: Sono utilizzate per fornire implementazioni immediate per un'interfaccia o una classe astratta, generalmente per gestire eventi o fornire dettagli di implementazione specifici.
+
+4. Accesso a Variabili Finali: Possono accedere a variabili finali o effettivamente finali del metodo circostante.
+
+5. Sintassi: La sintassi di una classe anonima inizia con l'operatore `new`, seguito dal nome di un'interfaccia o di una classe, seguito da un blocco di codice che fornisce l'implementazione.
+
+Esempio:
+
+Ecco un esempio di una classe anonima che implementa l'interfaccia `Runnable`:
+
+Runnable r = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("Questo è un esempio di classe anonima.");
+    }
+};
+
+In questo esempio, `Runnable` è un'interfaccia con un solo metodo astratto `run()`. La classe anonima fornisce l'implementazione di questo metodo. L'oggetto `r` può quindi essere utilizzato per eseguire il codice definito nel metodo `run()`.
+
+Uso Comune:
+
+Le classi anonime sono spesso utilizzate in situazioni dove:
+- È necessario un'implementazione rapida di un'interfaccia per un uso immediato e una tantum (come gestori di eventi in GUI).
+- Si desidera evitare la verbosità di dichiarare una nuova classe concreta quando il suo uso è molto limitato e specifico.
+
+Nonostante siano utili in molti casi, le classi anonime possono rendere il codice meno leggibile, specialmente se l'implementazione fornita è lunga o complessa. Con l'introduzione delle espressioni lambda in Java 8, molti degli usi delle classi anonime possono essere sostituiti da lambda, che sono più concise e chiare.

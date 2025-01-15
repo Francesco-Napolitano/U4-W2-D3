@@ -1,0 +1,37 @@
+`Stream.builder()` in Java è un metodo statico che crea un `Builder` per uno `Stream`. Questo builder può essere utilizzato per costruire uno stream aggiungendo elementi ad esso dinamicamente, permettendo una maggiore flessibilità rispetto agli stream creati da collezioni o array fissi. Una volta che tutti gli elementi sono stati aggiunti allo stream, si può chiamare il metodo `build()` per creare lo stream.
+
+Il builder di stream è particolarmente utile quando non si conosce in anticipo il numero esatto di elementi da includere nello stream, o quando gli elementi sono generati o raccolti da varie fonti in maniera non sequenziale.
+
+Ecco come funziona:
+
+1. Inizio: Inizializzi lo stream builder.
+   
+   Stream.Builder<String> builder = Stream.builder();
+   
+
+2. Aggiunta di Elementi: Aggiungi elementi allo stream builder utilizzando il metodo `add()`.
+   
+   builder.add("Elemento 1");
+   builder.add("Elemento 2");
+   builder.add("Elemento 3");
+   
+
+3. Costruzione dello Stream: Una volta aggiunti tutti gli elementi, utilizzi il metodo `build()` per creare lo stream.
+   
+   Stream<String> stream = builder.build();
+   
+
+4. Utilizzo dello Stream: Ora puoi utilizzare lo stream come qualsiasi altro stream, applicando operazioni intermedie e terminali.
+   
+   stream.forEach(System.out::println);
+   
+
+Esempio Completo:
+
+Stream.Builder<String> builder = Stream.builder();
+builder.add("Elemento 1").add("Elemento 2").add("Elemento 3");
+Stream<String> stream = builder.build();
+stream.forEach(System.out::println);
+
+
+Questo builder di stream offre un approccio flessibile e potente per la costruzione di stream, particolarmente utile in scenari dove i dati vengono aggregati o calcolati in maniera dinamica.
